@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuestionarios para Moodle</title>
+    <link rel="shortcut icon" href="https://2ality.com/2011/10/logo-js/js.jpg" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <script defer src="objetos.js"></script>
+</head>
+<body>
+    <h1>Cuestionarios para la moodle</h1>
+ <p><b>Importante:</b> existen caracteres que no se pueden usar ni en las preguntas ni en las respuestas, pues tienen un significado especial en el formato GIFT de la spreguntas de Moodle (para más información visite la página del <a href="https://docs.moodle.org/all/es/Formato_GIFT">formato GIFT</a>).</p>
+ <p>Los caracteres que hay que evitar son los siguientes: </p>
+<ul>
+    <li>~</li>
+    <li>#</li>
+    <li>=</li>
+    <li>}</li> <!--Si alguien sabe cómo dejar que salga en rojo el símbolo, que me ilumine xD-->
+    <li>{</li>
+    <li>:</li>
+</ul>
+<p> Para evitar problemas, lo ideal sería no usar esos caracteres. En caso de que sea estrictamente necesario usarlos, se usará el caracter \ automáticamente para quitarles el significado especial. Por ejemplo, A = B + C ⇨ A \= B + C.
+</p> 
+    <form action="" method="post">
+        <label for="txtPregunta">Escriba la pregunta:</label>
+        <textarea name="txtPregunta" id="txtPregunta" cols="60" rows="5"></textarea>
+        <label for="correctAnswer">Escriba la respuesta correcta:</label>
+        <input type="text" name="correctAnswer" id="correctAnswer">
+        <label for="firstAnswer">Escriba la primera respuesta incorrecta:</label>
+        <input type="text" name="firstAnswer" id="firstAnswer">
+        <label for="secondAnswer">Escriba la segunda respuesta incorrecta:</label>
+        <input type="text" name="secondAnswer" id="secondAnswer">
+        <label for="thirdAnswer">Escriba la tercera respuesta incorrecta:</label>
+        <input type="text" name="thirdAnswer" id="thirdAnswer">
+        <div class="button-container">
+            <button class="button" id="crear-pregunta">Crear pregunta</button>
+            <button class="button" id="generar-archivo">Generar archivo</button>
+            <button class="button" id="borrar-preguntas">Borrar todas las preguntas</button>
+            <button class="button" id="guardar-preguntas">Guardar todas las preguntas</button>
+        </div>
+    </form>   
+    <div id="divErrores"></div>
+    <div id="divPreguntas"></div>
+</body>
+</html>
