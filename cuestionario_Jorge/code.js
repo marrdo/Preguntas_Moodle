@@ -1,38 +1,108 @@
 "use strict";
 
-const cuestionario = new Cuestionario();
 
-// HECHO POR MI
-// Para comprobar si hay un objeto tipo cuestionario guardado en localStorage
-if(localStorage.getItem("cuestionario")){
-  // Si el objeto cuestionario existe en el localStorage
-  const objetoCuestionario =JSON.parse(localStorage.getItem("cuestionario"));
-  console.log("El cuestionario está ahí0");
-  // Para mostrar las preguntas
-  let divPreguntas=document.getElementById("divPreguntas");
-
-  divPreguntas.innerHTML="";
-
-  // Recorro las preguntas del cuestionario
-  if (objetoCuestionario && objetoCuestionario.preguntas) {
-    console.log("El cuestionario está ahí1");
-    for (let pregunta of objetoCuestionario.preguntas) {
-        divPreguntas.appendChild(pregunta.preguntaToHTMLDiv());
-        console.log("El cuestionario está ahí2");
-    }
-} else{
-
-  console.log("No se ha encontrado ningún objeto de tipo Cuestionario en localStorage");
-  const cuestionario = new Cuestionario();
-
-  localStorage.setItem("cuestionario",JSON.stringify({
-      tipo:"cuestionario"
-  }));
-
-}}
+/*Comprobacion del codigo de antonio*/
+//Capturo el localStorage si existe cuestionario y el div preguntas
+// Capturo el localStorage si existe cuestionario y el div preguntas
+let hay_cuestionario = localStorage.getItem("cuestionario");
+const divPreguntas = document.querySelector("#divPreguntas");
+let cuestionario;
+let pregunta;
 
 
+if (hay_cuestionario != null) {
+  divPreguntas.innerHTML = " ";
+  cuestionario = JSON.parse(hay_cuestionario);
 
+  let arrPreguntas = cuestionario.preguntas;
+
+   if(arrPreguntas.length > 0){
+
+    cuestionario=new Cuestionario();
+console.log("Este es el array de preguntas: "+arrPreguntas)
+    arrPreguntas.forEach(pregunta => {
+
+      let pregunta_Imprimir_HTML = new Pregunta(pregunta.id, pregunta.texto, pregunta.respuestaCorrecta,pregunta.respuestasIncorrecta1,pregunta.respuestasIncorrecta2,pregunta.respuestasIncorrecta3)
+      
+      if (pregunta_Imprimir_HTML instanceof Pregunta) {
+        // console.log(pregunta_Imprimir_HTML.toHTMLUl);
+        // let content=`<ul>`
+        // content += `<li>Pregunta: ${pregunta_Imprimir_HTML.texto}</li>`;
+        // content += `<li>Respuesta correcta: ${pregunta_Imprimir_HTML.respuestaCorrecta}</li>`;
+        // content += `<li>Respuesta incorrecta 1: ${pregunta_Imprimir_HTML.respuestasIncorrecta1}</li>`;
+        // content += `<li>Respuesta incorrecta 2: ${pregunta_Imprimir_HTML.respuestasIncorrecta2}</li>`;
+        // content += `<li>Respuesta incorrecta 3: ${pregunta_Imprimir_HTML.respuestasIncorrecta3}</li>`;
+        // content += `</ul><br>`;
+        // divPreguntas.innerHTML += content;
+
+        const ulElement = pregunta_Imprimir_HTML.toHTMLUl(); // Obtén el elemento ul
+        divPreguntas.appendChild(ulElement); // Agrega la lista al div
+
+
+      } else {
+        console.error('El objeto pregunta no es una instancia de la clase Pregunta.');
+
+      }
+
+    });
+   }else{
+    cuestionario = new Cuestionario();
+    divPreguntas.innerHTML = `<p>Todavía no hay preguntas creadas</p>`;
+   }
+
+
+  console.log("El cuestionario existe");
+} else {
+  cuestionario = new Cuestionario();
+
+  localStorage.setItem("cuestionario", JSON.stringify(cuestionario));
+
+  console.log("El cuestionario no existe");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// console.log(cuestionario);
 
 let id = 0;
 //Guardamos los botones y hacemos que validen
@@ -103,8 +173,8 @@ const nuevaPregunta = new Pregunta(
   thirdAnswer
 );
 
-// Añadir la pregunta al cuestionario
-cuestionario.añadirPregunta(nuevaPregunta);
+// Aniadir la pregunta al cuestionario
+cuestionario.aniadirPregunta(nuevaPregunta);
 
 // Incrementar el ID para la próxima pregunta
 id++;
@@ -143,8 +213,7 @@ mostrarTodasLasPreguntas();
 ///////////
 
 
-/*
- 
+/**
 @author Marrdo
 @type {function}
 @param {Array} array - El array del que se eliminarán los elementos.
@@ -157,8 +226,7 @@ function eliminarItemsArray(array){
   }
 }
 
-/*
- 
+/**
 @type {HTMLButtonElement}
 @author @marrdo
 @description Representa el botón "Borrar todas las preguntas" en la interfaz.
@@ -192,8 +260,7 @@ let guarda_preguntas = document.querySelector("#guardar-preguntas");
 //FUNCTIONS
 ///////////////
 /**
- 
-@author @marrdoarrdo
+@author @marrdo
 @type {function}
 @param {Array} array - Array que se almacenara en el localStorage.
 @description Guarda todos los elementos de un array en el localStorage.

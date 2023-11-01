@@ -1,13 +1,10 @@
 class Cuestionario {
 
-    
-
-
     constructor() {
         this.preguntas = [];
     }
 
-    añadirPregunta(pregunta) {
+    aniadirPregunta(pregunta) {
         this.preguntas.push(pregunta);
     }
 
@@ -18,6 +15,7 @@ class Cuestionario {
     getPregunta(id) {
         return this.preguntas.find(pregunta => pregunta.id === id);
     }
+
 
     preguntaToHTMLDiv(id) {
         const pregunta = this.getPregunta(id);
@@ -46,10 +44,7 @@ class Cuestionario {
             divPreguntas.appendChild(divWrapper); // Agregar el divWrapper a divPreguntas
         }
     }
-    
-
-    
-    
+   
 }
 
 
@@ -95,9 +90,5 @@ class Pregunta{
     
         return ul;
     }
-    
-      
-    
-
 
 }
