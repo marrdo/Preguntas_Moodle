@@ -47,33 +47,36 @@ class Pregunta{
       }
 
       toHTMLUl() {
-
-   
         const ul = document.createElement('ul');
         
         // Agregar el texto de la pregunta
         const liTexto = document.createElement('li');
-        liTexto.textContent = `Pregunta: ${this.texto}`;
+        liTexto.innerHTML = `Pregunta: ${this.texto}`;
         ul.appendChild(liTexto);
 
         // Agregar la respuesta correcta
         const liRespuestaCorrecta = document.createElement('li');
-        liRespuestaCorrecta.textContent = `Respuesta Correcta: ${this.respuestaCorrecta}`;
+        liRespuestaCorrecta.innerHTML = `Respuesta Correcta: ${this.respuestaCorrecta}`;
         ul.appendChild(liRespuestaCorrecta);
-
-        // Agregar las respuestas incorrectas
-        const liRespuestasIncorrectas = document.createElement('li');
-        liRespuestasIncorrectas.textContent = 'Respuestas Incorrectas:';
-        ul.appendChild(liRespuestasIncorrectas);
-
+    
         const ulRespuestasIncorrectas = document.createElement('ul');
-        this.respuestasIncorrectas.forEach(respuesta => {
-            const liRespuestaIncorrecta = document.createElement('li');
-            liRespuestaIncorrecta.textContent = respuesta;
-            ulRespuestasIncorrectas.appendChild(liRespuestaIncorrecta);
-        });
+        
+        // Agregar respuestas incorrectas
+        const liRespuestaIncorrecta1 = document.createElement('li');
+        liRespuestaIncorrecta1.innerHTML = this.respuestasIncorrecta1;
+        ulRespuestasIncorrectas.appendChild(liRespuestaIncorrecta1);
+        
+        const liRespuestaIncorrecta2 = document.createElement('li');
+        liRespuestaIncorrecta2.innerHTML = this.respuestasIncorrecta2;
+        ulRespuestasIncorrectas.appendChild(liRespuestaIncorrecta2);
+        
+        const liRespuestaIncorrecta3 = document.createElement('li');
+        liRespuestaIncorrecta3.innerHTML = this.respuestasIncorrecta3;
+        ulRespuestasIncorrectas.appendChild(liRespuestaIncorrecta3);
+    
         liRespuestasIncorrectas.appendChild(ulRespuestasIncorrectas);
-
+        ul.appendChild(liRespuestasIncorrectas);
+    
         return ul;
     }
 
