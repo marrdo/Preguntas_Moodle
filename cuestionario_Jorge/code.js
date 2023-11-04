@@ -1,6 +1,5 @@
 "use strict";
 
-
 /*Comprobacion del codigo de antonio*/
 //Capturo el localStorage si existe cuestionario y el div preguntas
 // Capturo el localStorage si existe cuestionario y el div preguntas
@@ -21,7 +20,8 @@ if (hay_cuestionario != null) {
     cuestionario=new Cuestionario();
 console.log("Este es el array de preguntas: "+arrPreguntas)
     arrPreguntas.forEach(pregunta => {
-
+     
+     
       let pregunta_Imprimir_HTML = new Pregunta(pregunta.id, pregunta.texto, pregunta.respuestaCorrecta,pregunta.respuestasIncorrecta1,pregunta.respuestasIncorrecta2,pregunta.respuestasIncorrecta3)
       
       if (pregunta_Imprimir_HTML instanceof Pregunta) {
@@ -61,48 +61,6 @@ console.log("Este es el array de preguntas: "+arrPreguntas)
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// console.log(cuestionario);
 
 let id = 0;
 //Guardamos los botones y hacemos que validen
@@ -173,7 +131,7 @@ const nuevaPregunta = new Pregunta(
   thirdAnswer
 );
 
-// Aniadir la pregunta al cuestionario
+// Añadir la pregunta al cuestionario
 cuestionario.aniadirPregunta(nuevaPregunta);
 
 // Incrementar el ID para la próxima pregunta
@@ -213,20 +171,21 @@ mostrarTodasLasPreguntas();
 ///////////
 
 
-/**
+/*
+ 
 @author Marrdo
 @type {function}
 @param {Array} array - El array del que se eliminarán los elementos.
 @description Elimina todos los elementos de un array.
 */
 function eliminarItemsArray(array){
-  while (array.length > 0) {
-    // Elimina el último elemento del array
-    array.pop();
-  }
+ 
+  array.preguntas=[];
+  return array;
 }
 
-/**
+/*
+ 
 @type {HTMLButtonElement}
 @author @marrdo
 @description Representa el botón "Borrar todas las preguntas" en la interfaz.
@@ -242,7 +201,9 @@ btnBorrarTodasLasPreguntas.addEventListener("click",()=>{
 
   divPreguntas.innerHTML = "Todavía no hay preguntas creadas.";
 
-  eliminarItemsArray(cuestionario);
+  cuestionario=eliminarItemsArray(cuestionario);
+
+  id=0; 
 
 });
 
@@ -260,7 +221,8 @@ let guarda_preguntas = document.querySelector("#guardar-preguntas");
 //FUNCTIONS
 ///////////////
 /**
-@author @marrdo
+ 
+@author @marrdoarrdo
 @type {function}
 @param {Array} array - Array que se almacenara en el localStorage.
 @description Guarda todos los elementos de un array en el localStorage.
@@ -269,4 +231,61 @@ let guarda_preguntas = document.querySelector("#guardar-preguntas");
 guarda_preguntas.addEventListener("click",()=>{
   let cuestionario_stringify = JSON.stringify(cuestionario);
   localStorage.cuestionario=cuestionario_stringify;
+});
+
+///////////////////////////////
+// GENERAR ARCHIVO
+//////////////////////////////
+
+// relaciono el btn con el id 
+let btnGenerarArchivo=document.querySelector("#generar-archivo");
+
+// Realizo evento y funcion anonima
+btnGenerarArchivo.addEventListener("click",()=>{
+  // Array para guardar lo que voy a pintar en el archivo final de cada pregunta
+  let arrayContenido=[];
+
+  // Recorro las preguntas
+  for (let pregunta of cuestionario.preguntas) {
+    // Cojo los ul de cada pregunta
+    const ulElement = pregunta.toHTMLUl();
+    // voy a coger cada li
+    const liElements = ulElement.querySelectorAll('li');
+
+    // Aqui voy a meter la informacion que quiero recoger de cada pregunta
+    let modificado = '';
+
+    // Recorro los li con un foreach 
+    liElements.forEach((li, index) => {
+      let contenido = li.textContent;
+
+      // Reemplazo algunas cosas por nada
+      contenido = contenido.replace("Pregunta: ", "").replace("Respuesta Correcta: ", "");
+
+      // En el caso de que sea la primera fila
+      if (index === 0) {
+        modificado += contenido + '\n{\n=...';
+      } else {
+        if (index === 1) {
+          // Aqui voy a concatenar el contenido al primer =... que nos encontremos en el contenido
+          modificado +=contenido+contenido.substring(contenido.indexOf("=...") + 4);
+        } else {
+          modificado += '\n~%25%' + contenido;
+        }
+      }
+    });
+
+    modificado += '\n}\n';
+    // Lo introduzco al array
+    arrayContenido.push(modificado);
+
+  }
+
+  let idPreguntas=cuestionario.preguntas.length;
+
+  let fichero = new File(arrayContenido, { type: "text/plain; charset=UTF-8" })
+  var url = window.URL.createObjectURL(fichero);
+  let divURL = document.querySelector('#urlFichero');
+  divURL.innerHTML = '<a download="preguntas.txt" href="' + url + '">Descargar fichero (' + idPreguntas + ')</a>';
+
 });
