@@ -18,26 +18,22 @@ if (hay_cuestionario != null) {
    if(arrPreguntas.length > 0){
 
     cuestionario=new Cuestionario();
-console.log("Este es el array de preguntas: "+arrPreguntas)
+
+    
     arrPreguntas.forEach(pregunta => {
-     
-     
+
       let pregunta_Imprimir_HTML = new Pregunta(pregunta.id, pregunta.texto, pregunta.respuestaCorrecta,pregunta.respuestasIncorrecta1,pregunta.respuestasIncorrecta2,pregunta.respuestasIncorrecta3)
       
       if (pregunta_Imprimir_HTML instanceof Pregunta) {
-        // console.log(pregunta_Imprimir_HTML.toHTMLUl);
-        // let content=`<ul>`
-        // content += `<li>Pregunta: ${pregunta_Imprimir_HTML.texto}</li>`;
-        // content += `<li>Respuesta correcta: ${pregunta_Imprimir_HTML.respuestaCorrecta}</li>`;
-        // content += `<li>Respuesta incorrecta 1: ${pregunta_Imprimir_HTML.respuestasIncorrecta1}</li>`;
-        // content += `<li>Respuesta incorrecta 2: ${pregunta_Imprimir_HTML.respuestasIncorrecta2}</li>`;
-        // content += `<li>Respuesta incorrecta 3: ${pregunta_Imprimir_HTML.respuestasIncorrecta3}</li>`;
-        // content += `</ul><br>`;
-        // divPreguntas.innerHTML += content;
+        
+        if (cuestionario instanceof Cuestionario) {
 
-        const ulElement = pregunta_Imprimir_HTML.toHTMLUl(); // Obtén el elemento ul
-        divPreguntas.appendChild(ulElement); // Agrega la lista al div
+          console.log(pregunta_Imprimir_HTML.id);
+          cuestionario.aniadirPregunta(pregunta_Imprimir_HTML);
 
+        }else{
+          console.log('no esta instanciado');
+        }
 
       } else {
         console.error('El objeto pregunta no es una instancia de la clase Pregunta.');
@@ -52,6 +48,14 @@ console.log("Este es el array de preguntas: "+arrPreguntas)
 
 
   console.log("El cuestionario existe");
+  console.log(cuestionario);
+
+  cuestionario.preguntas.forEach((pregunta)=>{
+    let id= pregunta.id;
+    if(cuestionario instanceof Cuestionario){
+      cuestionario.preguntaToHTMLDiv(id);
+    }
+  });
 } else {
   cuestionario = new Cuestionario();
 
