@@ -8,6 +8,10 @@ const divPreguntas = document.querySelector("#divPreguntas");
 let cuestionario;
 let pregunta;
 
+/**
+ * @description Verifica la existencia del objeto 'cuestionario' en el almacenamiento local (localStorage).
+ * Si existe, se analiza y se extrae el array de preguntas. Si no existe, se instancia un nuevo 'Cuestionario' y se guarda en localStorage.
+ */
 
 if (hay_cuestionario != null) {
   divPreguntas.innerHTML = " ";
@@ -15,6 +19,14 @@ if (hay_cuestionario != null) {
 
   let arrPreguntas = cuestionario.preguntas;
 
+  /**
+ * @description Procesa el array de preguntas (arrPreguntas) y las agrega al cuestionario.
+ * Si el array contiene al menos una pregunta, crea una instancia de 'Cuestionario', recorre el array de preguntas y las agrega al cuestionario.
+ * Si tanto la pregunta como el cuestionario son instancias válidas, se realiza la adición.
+ * Si el array de preguntas está vacío, se inicializa un nuevo 'Cuestionario' y se muestra un mensaje en el elemento 'divPreguntas' en caso de que no haya preguntas creadas.
+ */
+
+    
    if(arrPreguntas.length > 0){
 
     cuestionario=new Cuestionario();
@@ -175,9 +187,9 @@ mostrarTodasLasPreguntas();
 ///////////
 
 
-/*
+/**
  
-@author Marrdo
+@author marrdo
 @type {function}
 @param {Array} array - El array del que se eliminarán los elementos.
 @description Elimina todos los elementos de un array.
@@ -188,7 +200,7 @@ function eliminarItemsArray(array){
   return array;
 }
 
-/*
+/**
  
 @type {HTMLButtonElement}
 @author @marrdo
