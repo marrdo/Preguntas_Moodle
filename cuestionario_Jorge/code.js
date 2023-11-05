@@ -1,8 +1,13 @@
 "use strict";
 
-/*Comprobacion del codigo de antonio*/
-//Capturo el localStorage si existe cuestionario y el div preguntas
-// Capturo el localStorage si existe cuestionario y el div preguntas
+
+/**
+ * @description Obtiene un cuestionario almacenado en el almacenamiento local (localStorage) y realiza operaciones relacionadas con él.
+ * - Recupera el cuestionario del almacenamiento local, si existe.
+ * - Selecciona el elemento con el id "divPreguntas" del DOM.
+ * - Declara las variables 'cuestionario' y 'pregunta' para su uso posterior.
+ */
+
 let hay_cuestionario = localStorage.getItem("cuestionario");
 const divPreguntas = document.querySelector("#divPreguntas");
 let cuestionario;
@@ -189,7 +194,7 @@ mostrarTodasLasPreguntas();
 
 /**
  
-@author marrdo
+
 @type {function}
 @param {Array} array - El array del que se eliminarán los elementos.
 @description Elimina todos los elementos de un array.
@@ -238,7 +243,7 @@ let guarda_preguntas = document.querySelector("#guardar-preguntas");
 ///////////////
 /**
  
-@author @marrdoarrdo
+@author @marrdo
 @type {function}
 @param {Array} array - Array que se almacenara en el localStorage.
 @description Guarda todos los elementos de un array en el localStorage.
@@ -304,4 +309,16 @@ btnGenerarArchivo.addEventListener("click",()=>{
   let divURL = document.querySelector('#urlFichero');
   divURL.innerHTML = '<a download="preguntas.txt" href="' + url + '">Descargar fichero (' + idPreguntas + ')</a>';
 
+});
+
+/**
+* @author @marrdo
+* @description Cambia entre modos claro y oscuro al hacer clic en el elemento con el id "mode".
+* Este fragmento de código permite al usuario activar o desactivar el modo oscuro en la página web.
+*/
+
+let mode = document.querySelector("#mode");
+let body = document.querySelector("body");
+mode.addEventListener("click",()=>{
+  body.classList.toggle("dark");
 });

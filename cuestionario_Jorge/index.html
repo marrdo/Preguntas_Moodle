@@ -1,64 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cuestionarios para Moodle</title>
-    <link
-      rel="shortcut icon"
-      href="https://2ality.com/2011/10/logo-js/js.jpg"
-      type="image/x-icon"
-    />
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css" />
-    <script defer src="objetos.js"></script>
-    <script defer src="code.js"></script>
-  </head>
-  <body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cuestionarios para Moodle</title>
+  <link rel="shortcut icon" href="https://2ality.com/2011/10/logo-js/js.jpg" type="image/x-icon" />
+  <link rel="shortcut icon" href="asset/icon/favicon_io/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="objetos.js"></script>
+  <script defer src="code.js"></script>
+</head>
+
+<body>
+  <header>
+
+    <figure class="logo-moodle">
+      <img src="asset/img/Logo-moodle-Dark.png" alt="Logo de la pllataforma moodle">
+    </figure>
+
     <h1>Cuestionarios para la moodle</h1>
-    <p>
-      <b>Importante:</b> existen caracteres que no se pueden usar ni en las
-      preguntas ni en las respuestas, pues tienen un significado especial en el
-      formato GIFT de la spreguntas de Moodle (para más información visite la
-      página del
-      <a href="https://docs.moodle.org/all/es/Formato_GIFT">formato GIFT</a>).
-    </p>
-    <p>Los caracteres que hay que evitar son los siguientes:</p>
-    <ul><!--Códigos numéricos de caracteres HTML-->
-      <li>&#123;</li> <!-- { -->
-      <li>&#35;</li> <!-- # -->
-      <li>&#61;</li> <!-- = -->
-      <li>&#125;</li> <!-- } -->
-      <!-- Si alguien sabe cómo dejar que salga en rojo el símbolo, que me ilumine xD -->
-      <li>&#123;</li> <!-- { -->
-      <li>:</li>
-    </ul>
-    
-    <p>
-      Para evitar problemas, lo ideal sería no usar esos caracteres. En caso de
-      que sea estrictamente necesario usarlos, se usará el caracter \
-      automáticamente para quitarles el significado especial. Por ejemplo, A = B
-      + C ⇨ A \= B + C.
-    </p>
-    <form
-      action="/cuestionario_Jorge/index.html"
-      method="post"
-      onsubmit=" validateForm()"
-    >
-      <label for="txtPregunta">Escriba la pregunta:</label>
-      <textarea
-        name="txtPregunta"
-        id="txtPregunta"
-        cols="60"
-        rows="5"
-      ></textarea>
-      <label for="correctAnswer">Escriba la respuesta correcta:</label>
-      <input type="text" name="correctAnswer" id="correctAnswer" />
-      <label for="firstAnswer">Escriba la primera respuesta incorrecta:</label>
-      <input type="text" name="firstAnswer" id="firstAnswer" />
-      <label for="secondAnswer">Escriba la segunda respuesta incorrecta:</label>
-      <input type="text" name="secondAnswer" id="secondAnswer" />
-      <label for="thirdAnswer">Escriba la tercera respuesta incorrecta:</label>
-      <input type="text" name="thirdAnswer" id="thirdAnswer" />
+
+    <button type="button" id="mode">
+      <figure>
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-sun-moon" width="24" height="24"
+          viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+          stroke-linejoin="round">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M9.173 14.83a4 4 0 1 1 5.657 -5.657"></path>
+          <path d="M11.294 12.707l.174 .247a7.5 7.5 0 0 0 8.845 2.492a9 9 0 0 1 -14.671 2.914"></path>
+          <path d="M3 12h1"></path>
+          <path d="M12 3v1"></path>
+          <path d="M5.6 5.6l.7 .7"></path>
+          <path d="M3 21l18 -18"></path>
+        </svg>
+      </figure>
+    </button>
+  </header>
+  <main>
+
+    <section class="instrucciones">
+      <p>
+        <span>Importante</span>: existen caracteres que no se pueden usar ni en las
+        preguntas ni en las respuestas, pues tienen un significado especial en el
+        formato GIFT de la spreguntas de Moodle (para más información visite la
+        página del
+        <a href="https://docs.moodle.org/all/es/Formato_GIFT">formato GIFT</a>).
+      </p>
+      <p>Los caracteres que hay que evitar son los siguientes:</p>
+      <ul><!--Códigos numéricos de caracteres HTML-->
+        <li>&#123;</li> <!-- { -->
+        <li>&#35;</li> <!-- # -->
+        <li>&#61;</li> <!-- = -->
+        <li>&#125;</li> <!-- } -->
+        <li>&#123;</li> <!-- { -->
+        <li>&#58;</li>
+      </ul>
+      <p>
+        Para evitar problemas, lo ideal sería no usar esos caracteres. En caso de
+        que sea estrictamente necesario usarlos, se usará el caracter \
+        automáticamente para quitarles el significado especial. Por ejemplo, A = B
+        + C ⇨ A \= B + C.
+      </p>
+    </section>
+    <form action="/cuestionario_Jorge/index.html" method="post" onsubmit=" validateForm()">
+      <label for="txtPregunta">Escriba la pregunta <textarea name="txtPregunta" id="txtPregunta" cols="60" rows="5" placeholder="Escriba su pregunta aquí."></textarea></label>
+      
+      <label for="correctAnswer">Escriba la respuesta correcta: <input type="text" name="correctAnswer" id="correctAnswer" /></label>
+      
+      <label for="firstAnswer">Escriba la primera respuesta incorrecta: <input type="text" name="firstAnswer" id="firstAnswer" /></label>
+      
+      <label for="secondAnswer">Escriba la segunda respuesta incorrecta: <input type="text" name="secondAnswer" id="secondAnswer" /></label>
+      
+      <label for="thirdAnswer">Escriba la tercera respuesta incorrecta: <input type="text" name="thirdAnswer" id="thirdAnswer" /></label>
+      
       <div class="button-container">
         <button type="button" class="button" id="crear-pregunta">
           Crear pregunta
@@ -77,5 +92,15 @@
     <div id="urlFichero"></div>
     <div id="divErrores"></div>
     <div id="divPreguntas"></div>
-  </body>
+  </main>
+  <footer>
+    <h3>Trabajo realizado por: </h3>
+    <ul>
+      <li>Antonio Alonso</li>
+    <li>Jorge</li>
+    <li>Manuel</li>
+  </ul>
+  </footer>
+</body>
+
 </html>
