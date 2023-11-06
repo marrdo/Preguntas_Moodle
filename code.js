@@ -10,6 +10,7 @@
 
 let hay_cuestionario = localStorage.getItem("cuestionario");
 const divPreguntas = document.querySelector("#divPreguntas");
+let divURL = document.querySelector('#urlFichero');
 let cuestionario;
 let pregunta;
 
@@ -103,6 +104,7 @@ function validateForm() {
   let thirdAnswer = document.querySelector("#thirdAnswer").value;
   let divErrores = document.getElementById("divErrores");
 
+
   if (
     textarea == "" ||
     correctAnswer == "" ||
@@ -114,11 +116,12 @@ function validateForm() {
      Por favor, rellene todos los campos.`;
   } else {
     //ESCAPAR TEXTO
-
+    divErrores.innerHTML = "";
+    divURL.innerHTML = "";
     function escapeSpecialCharacters(text) {
       specialCharacters.forEach((char) => {
-        const regex = new RegExp(`\\${char}`, "g"); // Use a regular expression to find the special character
-        text = text.replace(regex, `\\${char}`); // Replace it with a backslash and the character
+        const regex = new RegExp(`\\${char}`, "g"); 
+        text = text.replace(regex, `\\${char}`); 
       });
 
       return text;
@@ -139,7 +142,7 @@ function validateForm() {
       thirdAnswer = escapeSpecialCharacters(thirdAnswer);
       correctAnswer = escapeSpecialCharacters(correctAnswer);
 
-      alert(textarea+ "está escapao");
+      
     }
  
    // Crear una nueva instancia de Pregunta
@@ -215,7 +218,7 @@ Este botón se utiliza para eliminar todas las preguntas en la aplicación cuand
 let btnBorrarTodasLasPreguntas = document.querySelector("#borrar-preguntas");
 
 btnBorrarTodasLasPreguntas.addEventListener("click",()=>{
-
+  divURL.innerHTML = "";
   localStorage.clear();
 
   let divPreguntas = document.querySelector("#divPreguntas");
@@ -251,6 +254,7 @@ let guarda_preguntas = document.querySelector("#guardar-preguntas");
 
 guarda_preguntas.addEventListener("click",()=>{
   let cuestionario_stringify = JSON.stringify(cuestionario);
+  divURL.innerHTML = "";
   localStorage.cuestionario=cuestionario_stringify;
 });
 
@@ -306,7 +310,7 @@ btnGenerarArchivo.addEventListener("click",()=>{
 
   let fichero = new File(arrayContenido, { type: "text/plain; charset=UTF-8" })
   var url = window.URL.createObjectURL(fichero);
-  let divURL = document.querySelector('#urlFichero');
+ 
   divURL.innerHTML = '<a download="preguntas.txt" href="' + url + '">Descargar fichero (' + idPreguntas + ')</a>';
 
 });
